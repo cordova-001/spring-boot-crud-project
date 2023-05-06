@@ -1,0 +1,44 @@
+#services:
+#  app:
+#    image: 'spring-boot-crud'
+#    build:
+#      context: ..
+#    container_name: spring-crud
+#    ports:
+#      - "5332:5432"
+#    depends_on:
+#      - db
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/spring-boot-crud
+#      - SPRING_DATASOURCE_USERNAME=postgres
+#      - SPRING_DATASOURCE_PASSWORD=inter123...
+#      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+#
+#  db:
+#    image: 'postgres:13.1-alpine'
+#    container_name: db
+#    environment:
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=inter123...
+
+services:
+  db:
+    container_name: spring-crud
+    image: postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5433/spring-boot-crud
+      POSTGRES_USER: spring
+      POSTGRES_PASSWORD: inter123
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    volumes:
+      - db:/data/spring-boot-crud
+    ports:
+      - "5433:5433"
+    networks:
+      - db
+    restart: unless-stopped
+networks:
+  db:
+    driver: bridge
+volumes:
+  db:

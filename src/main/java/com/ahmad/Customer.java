@@ -1,14 +1,27 @@
 package com.ahmad;
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
+@Entity
 public class Customer {
+    // This is table definitions
+    @Id@SequenceGenerator(
+            name = "customer_id_sequence",
+            sequenceName = "customer_id_sequence"
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "customer_id_sequence"
+    )
     private Integer id;
     private String firstName;
     private String lastName;
     private String email;
     private String phone;
 
+    //This is constructor definition
     public Customer(Integer id,
                     String firstName,
                     String lastName,
@@ -23,9 +36,11 @@ public class Customer {
         this.address = address;
     }
 
+    // No constructor definition
     public Customer() {
     }
 
+    // Getters and setters definition
     public Integer getId() {
         return id;
     }
@@ -78,6 +93,7 @@ public class Customer {
     private String address;
 
 
+    //Equals and hashcode definition
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,6 +108,7 @@ public class Customer {
     }
 
 
+    //toString definition
     @Override
     public String toString() {
         return "Customer{" +
